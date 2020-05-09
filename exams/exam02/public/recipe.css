@@ -1,0 +1,233 @@
+#recipe-web{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-self: start;
+}
+
+body{
+    background-color: rgb(166, 206, 171);
+}
+
+.heading{
+    color: darkgreen;
+    background-color: mintcream;
+    box-shadow: rgb(108, 17, 131);
+    text-align: center;
+    background-position: center;
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+.status{
+    font-size: xx-large;
+    font-weight: bolder;
+    color: darkgreen;
+}
+
+.logout-button{
+    padding-top: 0%;
+    height: 40px;
+    width: 120px;
+    font-size: large;
+    margin-left: 900px;
+    border-radius: 200px;
+    text-align: center;
+    font-weight: bolder;
+    background-color:  crimson;
+    color: aliceblue;
+}
+
+.welcome{
+    font-size: larger;
+    font-weight: bold;
+    color: darkgreen;
+    text-align: center;
+}
+
+h1{
+    color: red;
+    text-align: center;
+}
+
+.recipe-list{
+    list-style: none;
+    color: darkgreen;
+    font-size: x-large;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
+    word-break: break-word;
+  }
+
+.back-to-home{
+    color: black;
+    font-size: larger;
+    margin-right: 1100px;
+}
+
+.recipe-title{
+    width: 300px;
+    color: black;
+    word-break: break-word;
+}
+
+.recipe-title:hover{
+    color: darkslategray
+}
+
+.recipe-author{
+    width: 250px;
+    margin-left: 20px;
+    color: crimson;
+    word-break: break-word;
+}
+
+.recipe{
+    display: flex;
+    flex-direction: row;
+    word-break: break-all;
+}
+
+.recipes {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    word-break: break-all;
+}
+
+.recipe:hover{
+    background-color: #BADA55;
+}
+
+.recipe-details-page{
+    margin-left: 20px;
+}
+
+.add-recipe-button{
+    height: 40px;
+    width: 160px;
+    font-size: large;
+    margin-left: 430px;
+    border-radius: 200px;
+    text-align: center;
+    font-weight: bolder;
+    background-color:  crimson;
+    color: aliceblue;
+}
+
+h2{
+    color: darkred;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.title-author-heading{
+    color: brown;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.title{
+    color: black;
+    font-size: large;
+}
+
+.author{
+    color: black;
+    font-size: large;
+}
+
+.ingredients{
+    color: black;
+    font-size: large;
+}
+
+.instructions{
+    color: black;
+    font-size: large;
+}
+
+.recipe-submit-button{
+    height: 40px;
+    width: 160px;
+    font-size: medium;
+    border-radius: 200px;
+    background-color:  crimson;
+    color: aliceblue;
+}
+
+.new-recipe{
+    list-style: none;
+    color: darkgreen;
+    font-size: x-large;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 20px;
+    word-break: break-word;
+}
+
+.new-title{
+   color: black;
+   font-size: medium;
+   font-weight: bold;
+}
+
+.new-ingredients{
+    color: black;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.new-instructions{
+    color: black;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.login-button{
+    height: 40px;
+    width: 120px;
+    font-size: large;
+    margin-left: 850px;
+    border-radius: 200px;
+    text-align: center;
+    font-weight: bolder;
+    background-color:  crimson;
+    color: aliceblue;
+}
+
+.display-panel {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-self: start;
+}
+
+.submit-button{
+    height: 40px;
+    width: 120px;
+    border-radius: 200px;
+    text-align: center;
+    color: aliceblue;
+    background-color: crimson;
+    margin-top: 3px;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-weight: bolder;
+    font-size: large;
+}
+
+input{
+    height: 30px;
+    width: 200px;
+    color: whitesmoke;
+    background-color: darksalmon;
+    font-size: large;
+    word-break: break-all;
+    overflow-x : scroll;
+}

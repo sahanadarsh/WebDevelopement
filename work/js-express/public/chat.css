@@ -1,0 +1,102 @@
+#chat-app { 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.display-panel { 
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  min-width: 400px;
+  min-height: 40px;
+  border: 1px solid black;
+}
+
+.heading{
+  color: darkgreen;
+  background-color: mintcream;
+  box-shadow: rgb(108, 17, 131);
+  text-align: center;
+  background-position: center;
+}
+
+.user{
+  color: aliceblue;
+  font-weight: bold;
+}
+
+.users { 
+  color: aliceblue;
+  background-color: rgb(212, 158, 189);
+  border: 1px solid black;
+  list-style: none;
+  padding: 10px;
+  text-align: center;
+  margin: 0;
+}
+
+.messages { 
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid black;
+}
+
+.message { 
+  display: flex;
+  flex-direction: row;
+}
+
+.message:hover { 
+  background-color: #BADA55;
+}
+
+.meta-info { 
+  min-width: 100px;
+  background-color: rgb(187, 128, 161);
+  padding: 5px;
+}
+
+.message-text { 
+  padding-left: 10px;
+}
+
+
+.sender-info { 
+  color: aliceblue;
+}
+
+.message-info {
+  color: rgb(24, 63, 97);
+}
+
+.outgoing { 
+   padding-top: 50px;
+}
+
+.user-info{
+  color: black;
+  min-height: 30px;
+  background-color: rgb(148, 140, 224);
+}
+
+.to-send-text{
+  color: black;
+  margin-left: 50px;
+  min-width: 250px;
+  min-height: 30px;
+  background-color: rgb(148, 140, 224);
+}
+
+.send-button{
+  width: 70px;
+  height: 30px;
+  margin-left: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  background-color: crimson;
+  color: aliceblue;
+}
+

@@ -1,0 +1,164 @@
+#chat-web{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-self: start;
+}
+
+body{
+  background-color: rgb(166, 206, 171);
+}
+
+.heading{
+  color: darkgreen;
+  background-color: mintcream;
+  box-shadow: rgb(108, 17, 131);
+  text-align: center;
+  background-position: center;
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+form {
+  border: 1px solid black;
+}
+
+.display-panel {
+  height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-self: start;
+}
+
+.to-send{
+  width: 350px;
+  height: 45px;
+  color: whitesmoke;
+  background-color: darksalmon;
+  font-size: large;
+  word-break: break-all;
+  overflow-x : scroll;
+}
+
+input{
+  height: 30px;
+  width: 200px;
+  color: whitesmoke;
+  background-color: darksalmon;
+  font-size: large;
+  word-break: break-all;
+  overflow-x : scroll;
+}
+
+.to-login{
+  height: 40px;
+  width: 120px;
+  border-radius: 200px;
+  text-align: center;
+  color: aliceblue;
+  background-color: crimson;
+  margin-top: 3px;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-weight: bolder;
+  font-size: large;
+}
+
+.send-button{
+  height: 40px;
+  width: 120px;
+  border-radius: 200px;
+  text-align: center;
+  color: aliceblue;
+  background-color: crimson;
+  margin-top: 3px;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-weight: bolder;
+  font-size: large;
+}
+
+.logout-button{
+  height: 40px;
+  width: 120px;
+  font-size: large;
+  margin-left: 850px;
+  border-radius: 200px;
+  text-align: center;
+  font-weight: bolder;
+  background-color:  crimson;
+  color: aliceblue;
+}
+
+.time-stamp{
+  color:crimson;
+  word-break: break-all;
+}
+
+.username{
+  color: darkgreen;
+  font-size: large;
+  word-break: break-all;
+}
+
+.users {
+  margin: 60px;
+  margin-top: 30px;
+  width: 200px;
+  height: 300px;
+  border: 1px solid black;
+  overflow-y: scroll;
+  word-break: break-all;
+}
+
+.user{
+  list-style: none;
+  color: darkgreen;
+  font-size: large;
+  font-weight: bold;
+  word-break: break-all;
+}
+
+.messages {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+  width: 600px;
+  height: 300px;
+  border: 1px solid black;
+  overflow-y: scroll;
+  word-break: break-all;
+}
+
+.message {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  word-break: break-all;
+}
+
+.message:hover {
+  background-color: #BADA55;
+}
+
+.meta-info {
+  min-width: 100px;
+  background-color: lightgrey;
+  word-break: break-word;
+}
+
+.status{
+  font-size: xx-large;
+  font-weight: bolder;
+  color: darkgreen;
+  margin-top: 5px;
+}
+
+.message-text {
+  padding-left: 10px;
+  color: darkred;
+  font-size: large;
+  word-break: break-word;
+}
