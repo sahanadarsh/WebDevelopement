@@ -1,0 +1,443 @@
+# Exam 3 Questions
+
+* Answers should be roughly 2-5 sentences, and in your own words.  
+* Some questions ask for a code sample - keep them short and to the point.
+* Be sure to be clear - be careful not to use vague pronouns like "it" if I can't be completely sure what "it" is.
+* I cannot assume knowledge you don't demonstrate, so be clear and explicit.
+
+* NOTE: Because there is no coding portion to Exam 3, each of these questions is worth more to your grade than the questions on previous Exams!  Be sure to have answers you are confident shows your understanding!
+
+## Q1: I have said that React JSX components are like functions and follow many of the same best practices.  Give at least 2 such best practices that are good for both JS functions and JSX Components.  (Be substantive!)
+
+Best practices that are good for both JS functions and JSX Components are as follows
+
+1. We should not put too much of functionality in one JS function and JSX Component. We should break it down into smaller sections and make one function/component serve one purpose to have good separtion of concerns and have good decoupling.
+
+2. Like one function can call another function, components can also call other components
+
+3. Function/Component should be reusable and No need to know about other states(be specific).So that it works independently, takes input and gives output based on passed variables/props. Thus Both function/ component returns a value based only on the data passed in
+
+4. Function takes state data and modify the dom can be broken down into two steps
+    1. Convert data to HTML
+    2. Update page with HTML
+   Similarly JSX components are kind of functions but is written in HTML and its still actually a function(transpilled). It takes data, converts data to HTML and update page with that HTML.
+
+example:
+
+function App() {
+    return (
+        <div className="app">
+            <Greet/>
+        </div>
+    );
+}
+
+The above functions returns its HTML and <Greet/> component is called and it returns its contents.
+
+const Greet = function() {
+    return(
+        <p>Hi class</p>
+    );
+};
+
+output:
+
+Hi class
+
+## Q2: I have said that using Progressive Enhancement (supporting both MPA and SPA) is best, but many places don't do so because of the effort involved.  What is at least one major reason not to use SPA alone?
+
+Process of taking a non-client JS web app and augmenting it with JS is progressive enhancement. It remains working if no JS(no client side JS). Its great for search engines, accessibility and various devices. And also its great for ensuring backend is secure but fairly rare due to extra effort.
+
+Progressive enhancement techniques include:
+
+1. form validation before submit
+2. Autocomplete
+3. form submission hijacking
+4. pulling in functionality from other pages
+
+One of the major reason not to use SPA alone or one of the major reason to use Progrssive enhancement with SPA is SPA that uses progressive enhancement will have code that executes the web application functionalities using front-end javascript(RESTful APIs) as well as backend javascript(server side page reloads) whereas the SPA without progressive Enhancement will only have front-end javascript using REST APIs.
+
+If no JS, page works using form submits
+If JS, add to replace/turu-off/override DOM to use JS instead /also
+ ex: 1. a form validation sends to backend, gets new page
+     2. JS turns off submission, sends as background call and replace form once sent
+
+## Q3: The "proxy" setting in your package.json is required for the create-react-app dev server to call a local service, but not if you are calling a service that will always be on a different domain.  Explain what happens (in terms of network traffic) when your dev server is running on localhost port 3000 and the page makes a call to `/service` when you have "proxy" set to `http://localhost:4000` and a server running on localhost port 4000 that has the `/service` service.  hint: This should list and describe multiple request/response steps.
+
+Steps are as follows:
+
+1. When Page makes a call to '/service', the request is sent to dev server running on port 3000.
+2. Dev server on localhost:3000 doesn't have this '/service' but it does have a proxy configured to 'localhost:4000' in package.json.
+3. The request is forwared to server running on localhost 4000 which has '/service'.
+4. The server on 3000 receives response from server on 4000 and forwarded back to page.
+5. Page doesn't know whether its talking to port 4000 because page isn't.Its talking to port 3000. The server running on port 3000 is talking to the server running on port 4000.
+
+
+## Q4: Follow-up: Using the above scenario, list and describe what the network calls are like after you run `npm run build` and are only running all of your content on localhost port 4000 when your JSX makes a call to `/service`
+
+when we run `npm run build`, it will build all of the files to static, create a build directory and drop them on one server, it doesn't matter what port is on. all the code is still talking to the exact same server. After the build directory is ready to be deployed, it can serve with a static server.
+
+In the above scenario, after running the command 'npm run build', generates build directory.Then by running 'node server.js' on localhost port 4000, and when we see localhost:4000/service, we can see that its still getting hit on service. Now services are running on port 4000 and my static files are also running on port 4000. So No need to go to localhost port 3000 to see my page. Now everything can run on a single static file server.
+
+npm run build creates a build directory with a production build of our app. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes.<br />. By Setting up our server, so that a visitor to your site is served index.html, and requests to static paths like /static/js/main.<hash>.js are served with the contents of the /static/js/main.<hash>.js file. 
+ 
+
+## Q5: I have said that you can only pass data "down" in React, not "up".  What does that mean?  Give simple code sample if that makes it easier to describe.
+
+Pass data "down" in React, not "up" means passing state as props from top-level/parent component to child component and child components can pass down to deeper children. If too much state is passing down, then we want application state management.
+
+sample code 1: In the below sample code, we are passing props down from App.jsx(parent)  to child(Greeting.jsx) 
+
+App.jsx 
+
+import React, {useState} from 'react';
+import Greeting from './Greeting';
+
+function App() {
+
+    const greeting = 'Welcome to React';
+
+    return (
+        <div>
+            <Greeting greeting={greeting}/>
+        </div>
+    );
+}
+
+export default App;
+
+Greeting.jsx
+
+import React from 'react';
+
+const Greeting = ({greeting}) => {
+
+    return (
+        <button className="greet-button">{greeting}</button>
+    );
+}
+
+export default Greeting;
+
+## Q6: Follow-up: If you can't pass data "up" the component tree, how can anything that is "down" change data?  Give simple code samples if that makes it easier to describe.
+
+Anything that is "down" can change data through callbacks, which the ancestor must pass down.
+There is no way passing props from a child to a parent component. But we can always pass functions from parent to child components, whereas the child components make use of these functions and the functions may change the state in a parent component above. Once the state has changed, the state is passed down as props again. All affected components will render again
+
+sample code: Below sample code first evaluates whether user is logged in or not (user.isLoggedIn) which is false on the initial render. App.jsx passes a call back(login) to Login component and that callback sets the userSate as loggedIn and username is value of the username. However, the Login doesn't know the business logic of the function, only that it has to trigger the function when the setUser state changes. Above in the App component, the state is changed when the passed function is called, and thus all affected components, which use the changed state or consume it as props, render again. Therefore loggedIn is true, this will call List component and that list conponent gives list of todos. It doesn't know anything about where it came from and its just incharge of rendering the list. Likewise Login components will calls login with the username when it succeeds. It doesn't know logging functionality into. It doesn't matter. Therefore login and list components same like functions becomes generic and dumb about other components.Everything they know is props what we passed into them. 
+
+App.jsx 
+
+import React, {useState} from 'react';
+import Login from './Login';
+import List from './List';
+
+function App() {
+
+    const [todos, setTodos] = useState();
+    const [user, setUser] = useState({isLoggedIn: false, username: ''});
+
+    const login = (username) => {
+    setUser({
+      isLoggedIn: true,
+      username: username,
+    });
+  };
+
+    return (
+        <div>
+            { user.isLoggedIn ? 
+                <List list={todos}/> :
+                <Login onLogin={login}/>
+            }
+        </div>
+    );
+}
+
+Login.jsx
+
+import React, {useState} from 'react';
+import Counter from './Counter';
+
+const Login = ({ onLogin }) => {
+
+  const [username, setUsername] = useState('');
+
+    const performLogin = () => {
+        onLogin(username);
+    };
+
+    return (
+        <div>
+            <input className="username" placeholder="username" onChange={ (e) => setUsername(e.target.value) }/>
+            <button className="login-button" onClick={ performLogin }>Login</button>
+        </div>
+    );
+}
+
+export default App;
+
+## Q7: Imagine you have a collection of student records, with each having a student id, a name, and an address. (an example of one item in the collection would be: { id: "654321", name: "Bao", address: "123 Main Street" })  Imagine you also have collection of steps to create a pizza, with each step having an ingredient, a quantity, and an instruction. (an example of one item in the collection would be the object { qty: "1 cup", ingredient: "shredded cheese", instructions: "sprinkle over pizza" })
+
+Give a code sample where each collection is shown with at least one more element (2+ students for the first collection, 2+ pizza-making steps).  Make sure you make proper use of arrays and objects.  Explain why you've chosen each way of making a collection (e.g. Why you use an array for one or both, or why you use an object for one or both)
+
+const students = {
+    "654321": {
+      id: "654321",
+      name: "Bao",
+      address: "123 Main Street",
+    },
+    "654165": {
+      id: "654165",
+      name: "Sherlock",
+      address: "221B Baker Street",
+    },
+    "123456": {
+      id: "123456",
+      name: "Amit",
+      address: "3915 Sunset Street",
+    },
+};
+
+I would choose object data structure for students for the following reasons:
+1. A unique ID is assigned to each student
+2. This unique ID could be used to access the student object
+3. CRUD(create, read, update and delete) operations can be done in O(1)
+
+const pizzaMakingSteps = [
+    {
+        qty: "2 cup",
+        ingredient: "All purpose flour",
+        instructions: "mix with water",
+    },
+    {
+        qty: "1",
+        ingredient: "Onion",
+        instructions: "cut and spred over dough",
+    },
+    {
+        qty: "1 cup",
+        ingredient: "shredded cheese",
+        instructions: "sprinkle over pizza",
+    },
+];
+
+I would choose array data structure for pizza making steps for the following reasons:
+1. Pizza making is a process, which generally signifies linear access(step by step procedure or ordered access)
+2. Pizza making step/single element of array doesn't exist independently. We always have to use all steps or all elemts of array.
+3. Push/pop relates fecilitates linear addition/deletion. This clearly related to adding/deleting the step in pizza making.
+
+## Q8: How does inheritance in JS relate to a prototype?  Give a simple code sample if it helps explain.
+
+Inheritance in JS relate to a prototype because of the following reasons
+
+1. When it comes to inheritance, JavaScript only has one construct: objects. Each object has a private property which holds a link to another object called its prototype. That prototype object has a prototype of its own, and so on until an object is reached with null as its prototype. By definition, null has no prototype, and acts as the final link in this prototype chain.
+
+2. Objects can have "inheritance" - where an object can use the properties/methods of another object. If the code tries to access a value on the object, and the object doesn't have it defined for itself, it will check to see if its 'prototype' has it. Because the prototype is an object, when asked for its value, if it doesn't have it, it will check to see if it's prototype has it. This continues until an object doesn't have a prototype.
+
+3. Prototypes are objects, not plans. This means the prototype can be modified after the fact, like any object. The prototype of an object is not '.prototype' property of that object.
+4. Prototype can be accessed. A prototype is not a property named 'prototype'. Just like how an Object has properties, but not a property named 'properties'.
+
+simple code sample demonstrates Object.create way of inheritance, which is really a way to create prototype.
+
+const cat = {
+    name: 'Tutu',
+    beNice: function(){
+        console.log(`${this.name} says no`);
+    }
+};
+
+cat.beNice();  // Tutu says no
+               // When calling cat.beNice in this case, 'this' refers to cat
+
+const maru = Object.create(cat); // maru is an object that inherits from cat
+maru.name = 'Maru';  // creates a property 'name' on maru
+maru.beNice(); // Maru says no
+              // when maru.beNice is called, 'this' refers to maru.
+              // So when maru inherits the function beNice of cat, 
+              // 'this.name' means maru.name, the property 'name' of maru
+
+Object.create() gives a new object, with the new object's prototype set to passed object(Default is Object). No initialization code runs(no constructor).
+
+Inheritance from a prototype is automatic when we try to use the property.
+
+Many built-in-functions are accessed this way.
+
+const name = "amit";
+name.newProperty = "someVal";
+console.log(name.newProperty); //not inherited
+console.log(name.toUpperCase); //inherited
+console.log(name.length); //inherited
+
+
+## Q9: What is wrong about this code sample? `if( !username || username == undefined) { ` be sure to explain why that is wrong.
+
+The efficient way to do the same would be `if(!username){` because ! opearator evaluates to true in all the following cases
+1. null;
+2. NaN;
+3. 0;
+4. empty string ("" or '' or ``);
+5. undefined.
+
+This means second part of the `||` opeartor would be of no use
+
+On parallel note, if we have to check only for undefined we should use strict equality operator because username == undefined also checks whether username is null, while strict equality doesn't(username === undefined). This is because null is not equivalent to undefined.
+
+
+## Q10: What is decoupling?  What is an example of decoupling in a React app?
+
+Decoupling is process of separating, disengage or dissociate one function/Component from other function/Component.That is, making sure each component knows as little as possible about the other components around it. Decoupling is generally all about seeing whether or not two things need to closely work together or can be further made independent. Independence is great because it makes those things easy to change or use somewhere else.
+
+for example, Take two Componets, A and B. Lets assume A is depended on B (A is coupled with B) but B is not depended on A(B is decoupled with A). In this case, we can use B without taking A into consideration. If you want to use A, we will have to also carry B over, as A depends on it.
+
+Example of decoupling in a React app are
+1. Separating any logic that isn't presentation layer from JSX.(still separating concerns, event if it feels like we aren't).
+2. Like JS functions, making Components being too specific(generic). So that components should be reusable and components should not know about other state.
+3. Not putting too much in one Component
+   1. Like functions, break it down
+   2. one component, one purpose
+   3. one component can call others
+4. Each component can have its own state
+    1. class based components did so as a state object
+    2. function based components use "hooks" - special closures
+5. If the state doesn't belong to the component, it should be passed in as a prop
+
+
+Below sample demonstrates decoupling 
+
+Components.jsx contains several components which are independent of each other. 
+For example, when the user clicks on 'create-event' button, user will get page to create and once he clicks submit button, user will see event details page of created event. Also user can see event details page by just clicking on the event which is in createdEventList and also in invitedEventList(home page). The event details page is accessed from home page and created event page. Thus Event details page decoupled with other components.
+
+Components.jsx
+
+import React from 'react';
+import CreatedEventsList from './CreatedEventsList';
+import InvitedEventsList from './InvitedEventsList';
+
+const Components = ( {userState, onCreateEvent, onEventDetails, onLogout, onUpdateEvents, onEventUpdate} ) => {
+
+  return (
+    <div>
+        <div className="create-event">
+            <button className="create-event-button" onClick={ createEventPage }>Create Event</button>
+        </div>
+        <div className="events">
+            <CreatedEventsList user={userState} onGettingEventDetails = {onEventDetails} updateLists = {onUpdateEvents} eventUpdate={onEventUpdate}/>
+            <InvitedEventsList user={userState} onGettingEventDetails = {onEventDetails} updateLists = {onUpdateEvents}/>    
+        </div>
+    </div>
+  );
+
+};
+
+export default Components;
+
+CreateEvent.jsx
+
+import React from 'react';
+import { fetchEvents, fetchCreateEvent,fetchEventById } from './services';
+
+const CreateEvent = ( {userState, allUsers, onEventDetails, onHomePage } ) => {
+
+    const getEventDetails = () => {
+        fetchCreateEvent(eventName, userState.username, eventVenue, eventDateTime, eventDetails, selectedInvitees)
+        .then( (event) => {
+            fetchEventById(event.eventId)
+            .then( (event) => {
+                onEventDetails(event, '');
+            })
+            .catch( (err) => {
+                onEventDetails({}, err.code);      
+            });
+        })
+        .catch( (err) => {
+            onEventDetails({}, err.code);
+        }); 
+    };
+
+  return (
+    <div className="new-event">
+        <button className="recipe-submit-button" type="submit" onClick={ getEventDetails }>Submit</button>
+	</div> 
+  );
+
+};
+
+export default CreateEvent;
+
+CreatedEventList.jsx
+
+import React from 'react';
+import { fetchEventById, fetchDeleteCreatedEvent, fetchEvents,fetchRegisteredUsers } from './services';
+
+const CreatedEventsList = ( {user, onGettingEventDetails, updateLists, eventUpdate} ) => {
+
+    const getEventDetails = (e, eventId) => {
+        e.preventDefault();
+        fetchEventById(eventId)
+        .then( (event) => {
+            onEventDetails(event, '');
+        })
+        .catch( (err) => {
+            onEventDetails({}, err.code);     
+        }); 
+    };
+
+
+  return (
+    <div>
+        <ul className="events">
+            {Object.values(user.createdEvents).map( (createdEvent,index) => (
+            <li key={index}>
+                <div className="event">
+                    <div>
+                        <a  className="event-name" href="https://event1.com" title="click to get detail of event" onClick={ e => getEventDetails(e, createdEvent.eventId) }>{createdEvent.eventName}</a>
+                    </div>
+                </div>
+            </li>
+            ))}
+        </ul>
+    </div>
+  );
+
+};
+
+export default CreatedEventsList;
+
+InvitedEventList.jsx --> 
+
+import React, { useState } from 'react';
+import { fetchEventById, fetchUpdateEvent, fetchDeleteInvitedEvent, fetchEvents } from './services';
+
+const InvitedEventsList = ( {user, onEventDetails, updateLists} ) => {
+
+    const getEventDetails = (e, eventId) => {
+        e.preventDefault();
+        fetchEventById(eventId)
+        .then( (event) => {
+            onEventDetails(event, '');
+        })
+        .catch( (err) => {
+            onEventDetails({}, err.code);      
+        }); 
+    };
+
+    return (
+        <div>
+            <ul className="events">
+                {Object.values(user.invitedEvents).map( (invitedEvent,index) => (
+                <li key={index}>
+                    <div className="event">
+                        <div>
+                            <a  className="event-name" href="https://event1.com" title="click to get detail of event" onClick={ e => getEventDetails(e, invitedEvent.event.eventId) }>{invitedEvent.event.eventName}</a>
+                        </div>
+                    </div>
+                </li>
+                ))}
+            </ul>
+        </div>
+    );
+
+};
+
+export default InvitedEventsList;
